@@ -1,0 +1,10 @@
+<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M40 10L10 25V30H70V25L40 10Z" fill="#CBD0DA"/>
+  <path d="M20 30V60H25V30H20Z" fill="#CBD0DA"/>
+  <path d="M55 30V60H60V30H55Z" fill="#CBD0DA"/>
+  <path d="M25 60H55V65H25V60Z" fill="#CBD0DA"/>
+  <path d="M30 35H35V55H30V35Z" fill="#CBD0DA"/>
+  <path d="M45 35H50V55H45V35Z" fill="#CBD0DA"/>
+  <circle cx="40" cy="20" r="3" fill="#CBD0DA"/>
+</svg>
+
