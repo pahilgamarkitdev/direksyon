@@ -14,6 +14,8 @@ import { Separator } from "@/components/ui/separator"
 import { signUpSchema, SignUpType } from "@/model/authModel"
 import Image from "next/image"
 import logo from "@/assets/logo/logo.png"
+import { signUpAction } from "@/app/actions"
+import { MoonLoader } from "react-spinners"
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false)
@@ -29,9 +31,19 @@ export default function SignUp() {
     },
   })
 
-  function onSubmit(values: SignUpType) {
-    console.log(values)
-    // Handle sign up logic here
+  async function onSubmit(values: SignUpType) {
+    try {
+      await signUpAction(values)
+    } catch (error) {
+      console.error(error)
+
+      if (error instanceof Error) {
+        form.setError("root", {
+          type: "manual",
+          message: error.message,
+        })
+      }
+    }
   }
 
   return (
@@ -146,7 +158,8 @@ export default function SignUp() {
             )}
           />
 
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full flex flex-row gap-3" disabled={form.formState.isSubmitting}>
+            <MoonLoader size={16} color="#fff" loading={form.formState.isSubmitting} />
             Sign up
           </Button>
         </form>

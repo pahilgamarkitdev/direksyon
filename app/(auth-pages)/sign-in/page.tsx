@@ -15,6 +15,8 @@ import { signInSchema, SignInType } from "@/model/authModel"
 
 import logo from "@/assets/logo/logo.png";
 import Image from "next/image"
+import { MoonLoader } from "react-spinners"
+import { signInAction } from "@/app/actions"
 
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false)
@@ -27,9 +29,19 @@ export default function SignIn() {
     },
   })
 
-  function onSubmit(values: SignInType) {
-    console.log(values)
-    // Handle sign in logic here
+  async function onSubmit(values: SignInType) {
+    try {
+      await signInAction(values)
+    } catch (error) {
+      console.error(error)
+
+      if (error instanceof Error) {
+        form.setError("root", {
+          type: "manual",
+          message: error.message,
+        })
+      }
+    }
   }
 
   return (
@@ -52,7 +64,7 @@ export default function SignIn() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username or email</FormLabel>
+                <FormLabel>Email</FormLabel>
                 <FormControl>
                   <div className="relative">
                     <Mail className="absolute left-3 top-2.5 h-5 w-5 text-muted-foreground" />
@@ -99,7 +111,8 @@ export default function SignIn() {
             )}
           />
 
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full flex flex-row gap-3" disabled={form.formState.isSubmitting}>
+            <MoonLoader size={16} color="#fff" loading={form.formState.isSubmitting} />
             Sign in
           </Button>
         </form>

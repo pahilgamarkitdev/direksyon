@@ -4,10 +4,12 @@ import { encodedRedirect } from "@/utils/utils";
 import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { SignInType, SignUpType } from "@/model/authModel";
 
-export const signUpAction = async (formData: FormData) => {
-  const email = formData.get("email")?.toString();
-  const password = formData.get("password")?.toString();
+export const signUpAction = async (data: SignUpType) => {
+
+  const { email, password } = data;
+
   const supabase = await createClient();
   const origin = (await headers()).get("origin");
 
@@ -39,9 +41,9 @@ export const signUpAction = async (formData: FormData) => {
   }
 };
 
-export const signInAction = async (formData: FormData) => {
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
+export const signInAction = async (data: SignInType) => {
+  const { email, password } = data;
+
   const supabase = await createClient();
 
   const { error } = await supabase.auth.signInWithPassword({
