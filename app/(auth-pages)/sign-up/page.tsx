@@ -16,10 +16,12 @@ import Image from "next/image"
 import logo from "@/assets/logo/logo.png"
 import { signUpAction } from "@/app/actions"
 import { MoonLoader } from "react-spinners"
+import { useToast } from "@/hooks/use-toast"
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const { toast } = useToast()
 
   const form = useForm<SignUpType>({
     resolver: zodResolver(signUpSchema),
@@ -34,6 +36,11 @@ export default function SignUp() {
   async function onSubmit(values: SignUpType) {
     try {
       await signUpAction(values)
+
+      toast({
+        title: "Sign up successful",
+        description: "Please check your email for a verification link.",
+      })
     } catch (error) {
       console.error(error)
 
@@ -41,6 +48,12 @@ export default function SignUp() {
         form.setError("root", {
           type: "manual",
           message: error.message,
+        })
+
+        toast({
+          title: "Sign up failed",
+          description: error.message,
+          variant: "destructive",
         })
       }
     }
@@ -174,7 +187,8 @@ export default function SignUp() {
         </div>
       </div>
 
-      <Button variant="outline" className="w-full">
+      <Button variant="outline" className="w-full"
+      >
         <svg
           className="mr-2 h-4 w-4"
           aria-hidden="true"

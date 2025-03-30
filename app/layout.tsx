@@ -9,6 +9,7 @@ import Link from "next/link";
 import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/sidebarTest";
+import { Toaster } from "@/components/ui/toaster";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -41,6 +42,7 @@ export default function RootLayout({
         >
           <main className="min-h-screen max-w-full flex flex-col">
             {children}
+            <Toaster />
           </main>
         </ThemeProvider>
       </body>

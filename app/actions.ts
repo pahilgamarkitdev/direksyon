@@ -8,36 +8,49 @@ import { SignInType, SignUpType } from "@/model/authModel";
 
 export const signUpAction = async (data: SignUpType) => {
 
-  const { email, password } = data;
+  try {
+    const { email, password } = data;
 
-  const supabase = await createClient();
-  const origin = (await headers()).get("origin");
+    const supabase = await createClient();
+    const origin = (await headers()).get("origin");
 
-  if (!email || !password) {
-    return encodedRedirect(
-      "error",
-      "/sign-up",
-      "Email and password are required",
-    );
-  }
+    if (!email || !password) {
+      throw new Error("Email and password are required");
+    }
 
-  const { error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      emailRedirectTo: `${origin}/auth/callback`,
-    },
-  });
+    const { error, data: userData } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${origin}/auth/callback`,
+      },
+    })
 
-  if (error) {
-    console.error(error.code + " " + error.message);
-    return encodedRedirect("error", "/sign-up", error.message);
-  } else {
-    return encodedRedirect(
-      "success",
-      "/sign-up",
-      "Thanks for signing up! Please check your email for a verification link.",
-    );
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    if (!userData.user) {
+      throw new Error("User data is missing");
+    }
+
+    // insert user data into database
+    const { error: userError } = await supabase
+      .from("users")
+      .insert({
+        id: userData.user?.id,
+        email: data.email,
+        username: data.username,
+      });
+
+    if (userError) {
+      throw new Error(userError.message);
+    }
+
+  } catch (error) {
+    console.error(error);
+
+    throw error;
   }
 };
 
