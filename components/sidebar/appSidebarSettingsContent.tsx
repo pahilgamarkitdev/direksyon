@@ -35,9 +35,14 @@ export default function AppSidebarSettingsContent() {
 
 
                             <SidebarMenuSubItem>
-                                <SidebarMenuSubButton className='w-full h-full flex flex-row items-center gap-2'>
-                                    <TriangleAlertIcon className='w-5 h-5' />
-                                    <p className='font-semibold text-base'>About Us</p>
+                                <SidebarMenuSubButton asChild>
+                                    <Link className='w-full h-full flex flex-row items-center gap-2'
+                                        href='/home/about'
+                                    >
+                                        <TriangleAlertIcon className='w-5 h-5' />
+                                        <p className='font-semibold text-base'>About Us</p>
+                                    </Link>
+
                                 </SidebarMenuSubButton>
                             </SidebarMenuSubItem>
 
