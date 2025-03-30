@@ -17,9 +17,12 @@ import logo from "@/assets/logo/logo.png";
 import Image from "next/image"
 import { MoonLoader } from "react-spinners"
 import { signInAction } from "@/app/actions"
+import { useToast } from "@/hooks/use-toast"
+import { redirect } from "next/navigation"
 
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false)
+  const { toast } = useToast()
 
   const form = useForm<SignInType>({
     resolver: zodResolver(signInSchema),
@@ -32,6 +35,14 @@ export default function SignIn() {
   async function onSubmit(values: SignInType) {
     try {
       await signInAction(values)
+
+      toast({
+        title: "Success",
+        description: "Successfully signed in",
+        variant: "default",
+      })
+
+      redirect("/home")
     } catch (error) {
       console.error(error)
 
@@ -41,6 +52,11 @@ export default function SignIn() {
           message: error.message,
         })
       }
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Something went wrong",
+        variant: "destructive",
+      })
     }
   }
 

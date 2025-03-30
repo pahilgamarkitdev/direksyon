@@ -55,20 +55,25 @@ export const signUpAction = async (data: SignUpType) => {
 };
 
 export const signInAction = async (data: SignInType) => {
-  const { email, password } = data;
+  try {
+    const { email, password } = data;
 
-  const supabase = await createClient();
+    const supabase = await createClient();
 
-  const { error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-  if (error) {
-    return encodedRedirect("error", "/sign-in", error.message);
+    if (error) {
+      throw new Error(error.message);
+    }
+
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 
-  return redirect("/protected");
 };
 
 export const forgotPasswordAction = async (formData: FormData) => {
@@ -143,7 +148,11 @@ export const resetPasswordAction = async (formData: FormData) => {
 };
 
 export const signOutAction = async () => {
-  const supabase = await createClient();
-  await supabase.auth.signOut();
-  return redirect("/sign-in");
+  try {
+    const supabase = await createClient();
+    await supabase.auth.signOut();
+  } catch (error) {
+    console.error("Error signing out:", error);
+  }
+
 };
