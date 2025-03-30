@@ -3,6 +3,7 @@ import { SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, S
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu'
 import { ChevronDownIcon, InfoIcon, SlidersVerticalIcon, TriangleAlertIcon, User, UserRoundIcon } from 'lucide-react'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../ui/collapsible'
+import Link from 'next/link'
 
 export default function AppSidebarSettingsContent() {
     return (
@@ -24,9 +25,11 @@ export default function AppSidebarSettingsContent() {
                     <SidebarContent>
                         <SidebarMenuSub>
                             <SidebarMenuSubItem>
-                                <SidebarMenuSubButton className='w-full h-full flex flex-row items-center gap-2'>
-                                    <UserRoundIcon className='w-5 h-5' />
-                                    <p className='font-semibold text-base'>Profile</p>
+                                <SidebarMenuSubButton asChild>
+                                    <Link href='/home/profile' className='w-full h-full flex flex-row items-center gap-2'>
+                                        <UserRoundIcon className='w-5 h-5' />
+                                        <p className='font-semibold text-base'>Profile</p>
+                                    </Link>
                                 </SidebarMenuSubButton>
                             </SidebarMenuSubItem>
 

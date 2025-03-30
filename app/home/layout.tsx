@@ -11,7 +11,7 @@ export default function Layout({
         <div>
             <SidebarProvider>
                 <AppSidebar />
-                <div className='flex flex-row gap-2'>
+                <div className='flex flex-row gap-2 w-full'>
                     <SidebarTrigger />
                     {children}
                 </div>
