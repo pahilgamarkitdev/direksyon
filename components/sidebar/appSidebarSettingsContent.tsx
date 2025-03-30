@@ -47,9 +47,15 @@ export default function AppSidebarSettingsContent() {
                             </SidebarMenuSubItem>
 
                             <SidebarMenuSubItem>
-                                <SidebarMenuSubButton className='w-full h-full flex flex-row items-center gap-2'>
-                                    <InfoIcon className='w-5 h-5' />
-                                    <p className='font-semibold text-base'>Report a Problem</p>
+                                <SidebarMenuSubButton asChild>
+                                    <Link
+                                        className='w-full h-full flex flex-row items-center gap-2'
+                                        href={'/home/report'}
+                                    >
+                                        <InfoIcon className='w-5 h-5' />
+                                        <p className='font-semibold text-base'>Report a Problem</p>
+                                    </Link>
+
                                 </SidebarMenuSubButton>
                             </SidebarMenuSubItem>
                         </SidebarMenuSub>
