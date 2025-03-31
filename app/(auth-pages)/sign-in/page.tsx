@@ -1,28 +1,36 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { Eye, EyeOff, Mail } from "lucide-react"
+import { useState } from "react";
+import Link from "next/link";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Eye, EyeOff, Mail } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Separator } from "@/components/ui/separator"
-import { signInSchema, SignInType } from "@/model/authModel"
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { signInSchema, SignInType } from "@/model/authModel";
 
 import logo from "@/assets/logo/logo.png";
-import Image from "next/image"
-import { MoonLoader } from "react-spinners"
-import { signInAction } from "@/app/actions"
-import { useToast } from "@/hooks/use-toast"
-import { redirect } from "next/navigation"
+import Image from "next/image";
+import { MoonLoader } from "react-spinners";
+import { signInAction } from "@/app/actions";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 export default function SignIn() {
-  const [showPassword, setShowPassword] = useState(false)
-  const { toast } = useToast()
+  const [showPassword, setShowPassword] = useState(false);
+  const { toast } = useToast();
+  const router = useRouter();
 
   const form = useForm<SignInType>({
     resolver: zodResolver(signInSchema),
@@ -30,33 +38,34 @@ export default function SignIn() {
       email: "",
       password: "",
     },
-  })
+  });
 
   async function onSubmit(values: SignInType) {
     try {
-      await signInAction(values)
+      await signInAction(values);
 
       toast({
         title: "Success",
         description: "Successfully signed in",
         variant: "default",
-      })
+      });
 
-      redirect("/home")
+      router.push("/home");
     } catch (error) {
-      console.error(error)
+      console.error(error);
 
       if (error instanceof Error) {
         form.setError("root", {
           type: "manual",
           message: error.message,
-        })
+        });
       }
       toast({
         title: "Error",
-        description: error instanceof Error ? error.message : "Something went wrong",
+        description:
+          error instanceof Error ? error.message : "Something went wrong",
         variant: "destructive",
-      })
+      });
     }
   }
 
@@ -70,7 +79,9 @@ export default function SignIn() {
       <div className="space-y-2 text-start">
         <h1 className="text-3xl font-bold tracking-tight">Hello,</h1>
         <h2 className="text-3xl font-bold tracking-tight">Welcome Back</h2>
-        <p className="text-sm text-muted-foreground">Hey, welcome back we are here to guide you</p>
+        <p className="text-sm text-muted-foreground">
+          Hey, welcome back we are here to guide you
+        </p>
       </div>
 
       <Form {...form}>
@@ -84,7 +95,11 @@ export default function SignIn() {
                 <FormControl>
                   <div className="relative">
                     <Mail className="absolute left-3 top-2.5 h-5 w-5 text-muted-foreground" />
-                    <Input placeholder="Enter your email" className="pl-10" {...field} />
+                    <Input
+                      placeholder="Enter your email"
+                      className="pl-10"
+                      {...field}
+                    />
                   </div>
                 </FormControl>
                 <FormMessage />
@@ -100,7 +115,11 @@ export default function SignIn() {
                 <FormLabel>Password</FormLabel>
                 <FormControl>
                   <div className="relative">
-                    <Input type={showPassword ? "text" : "password"} placeholder="Enter your password" {...field} />
+                    <Input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Enter your password"
+                      {...field}
+                    />
                     <Button
                       type="button"
                       variant="ghost"
@@ -113,12 +132,17 @@ export default function SignIn() {
                       ) : (
                         <Eye className="h-4 w-4 text-muted-foreground" />
                       )}
-                      <span className="sr-only">{showPassword ? "Hide password" : "Show password"}</span>
+                      <span className="sr-only">
+                        {showPassword ? "Hide password" : "Show password"}
+                      </span>
                     </Button>
                   </div>
                 </FormControl>
                 <div className="flex justify-end">
-                  <Link href="/forgot-password" className="text-xs text-muted-foreground hover:text-primary">
+                  <Link
+                    href="/forgot-password"
+                    className="text-xs text-muted-foreground hover:text-primary"
+                  >
                     Forgot password?
                   </Link>
                 </div>
@@ -127,8 +151,16 @@ export default function SignIn() {
             )}
           />
 
-          <Button type="submit" className="w-full flex flex-row gap-3" disabled={form.formState.isSubmitting}>
-            <MoonLoader size={16} color="#fff" loading={form.formState.isSubmitting} />
+          <Button
+            type="submit"
+            className="w-full flex flex-row gap-3"
+            disabled={form.formState.isSubmitting}
+          >
+            <MoonLoader
+              size={16}
+              color="#fff"
+              loading={form.formState.isSubmitting}
+            />
             Sign in
           </Button>
         </form>
@@ -164,11 +196,13 @@ export default function SignIn() {
 
       <div className="text-center text-sm">
         <span className="text-muted-foreground">Are you new? </span>
-        <Link href="/sign-up" className="font-medium text-primary hover:underline">
+        <Link
+          href="/sign-up"
+          className="font-medium text-primary hover:underline"
+        >
           Create an Account
         </Link>
       </div>
     </div>
-  )
+  );
 }
-

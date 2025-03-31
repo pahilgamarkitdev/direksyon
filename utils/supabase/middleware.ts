@@ -39,17 +39,36 @@ export const updateSession = async (request: NextRequest) => {
     // https://supabase.com/docs/guides/auth/server-side/nextjs
     const user = await supabase.auth.getUser();
 
-    // protected routes
-    if (request.nextUrl.pathname.startsWith("/home") && user.error) {
-      return NextResponse.redirect(new URL("/sign-in", request.url));
-    }
-
-    if (request.nextUrl.pathname === "/" && !user.error) {
+    if (request.nextUrl.pathname === "/sign-in" && !user.error) {
       return NextResponse.redirect(new URL("/home", request.url));
-    } else if (request.nextUrl.pathname === "/" && user.error) {
-      return NextResponse.redirect(new URL("/sign-in", request.url));
     }
 
+
+    /*     if (user.data) {
+          if (request.nextUrl.pathname === "/") {
+            return NextResponse.redirect(new URL("/home", request.url));
+          }
+    
+          if (request.nextUrl.pathname.startsWith("/sign-in")) {
+            return NextResponse.redirect(new URL("/home", request.url));
+          }
+          if (request.nextUrl.pathname.startsWith("/sign-up")) {
+            return NextResponse.redirect(new URL("/home", request.url));
+          }
+          if (request.nextUrl.pathname.startsWith("/forgot-password")) {
+            return NextResponse.redirect(new URL("/home", request.url));
+          }
+        } else {
+          // protected routes
+          if (request.nextUrl.pathname.startsWith("/home")) {
+            return NextResponse.redirect(new URL("/sign-in", request.url));
+          }
+    
+          if (request.nextUrl.pathname === "/") {
+            return NextResponse.redirect(new URL("/sign-in", request.url));
+          }
+        }
+     */
     return response;
   } catch (e) {
     // If you are here, a Supabase client could not be created!
