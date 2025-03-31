@@ -3,12 +3,11 @@
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import Image from "next/image";
-import firstFloor from "@/assets/buildings/mainBuilding/1.png";
-import secondFloor from "@/assets/buildings/mainBuilding/2.png";
-import thirdFloor from "@/assets/buildings/mainBuilding/3.png";
-import fourthFloor from "@/assets/buildings/mainBuilding/4.png";
+import firstFloor from "@/assets/buildings/marineBuilding/1.png";
+import secondFloor from "@/assets/buildings/marineBuilding/2.png";
+import thirdFloor from "@/assets/buildings/marineBuilding/3.png";
 
-export default function MainBuildingsContent() {
+export default function MarineBuildingsContent() {
   return (
     <div className="flex flex-col w-full h-full">
       <Tabs defaultValue="1" className="w-full h-full">
@@ -21,9 +20,6 @@ export default function MainBuildingsContent() {
           </TabsTrigger>
           <TabsTrigger value="3" className="z-50">
             3rd Floor
-          </TabsTrigger>
-          <TabsTrigger value="4" className="z-50">
-            4th Floor
           </TabsTrigger>
         </TabsList>
 
@@ -47,14 +43,6 @@ export default function MainBuildingsContent() {
           <Image
             src={thirdFloor}
             alt="3rd Floor"
-            fill
-            className="object-contain"
-          />
-        </TabsContent>
-        <TabsContent value="4" className="w-full h-full">
-          <Image
-            src={fourthFloor}
-            alt="4th Floor"
             fill
             className="object-contain"
           />

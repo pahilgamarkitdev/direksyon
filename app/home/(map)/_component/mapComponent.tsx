@@ -66,21 +66,21 @@ main bldg - 10.711086830282541, 122.5661467511236
       },
     },
     {
-      key: "Techno 1st",
+      key: "Techno Building",
       location: {
         lat: 10.708280243896665,
         lng: 122.56337002795654,
       },
     },
     {
-      key: "Civil Engr",
+      key: "Civil Engr. Building",
       location: {
         lat: 10.708302282920338,
         lng: 122.56283036361148,
       },
     },
     {
-      key: "CompE/IT Bldg",
+      key: "CompE/IT Building",
       location: {
         lat: 10.708179732114804,
         lng: 122.56290680657006,
@@ -92,6 +92,13 @@ main bldg - 10.711086830282541, 122.5661467511236
         lat: 10.709667090297387,
         lng: 122.56334124960425,
       },
+    },
+    {
+      key: "Athlete Building",
+      location: {
+        lat: 10.709984528592868,
+        lng: 122.56351796327638
+      }
     },
     {
       key: "Small Grand Stand",
@@ -108,7 +115,7 @@ main bldg - 10.711086830282541, 122.5661467511236
       },
     },
     {
-      key: "Arts Entrance",
+      key: "RTS Entrance",
       location: {
         lat: 10.707988122095264,
         lng: 122.56412606712468,
@@ -170,12 +177,13 @@ main bldg - 10.711086830282541, 122.5661467511236
                 url: "https://maps.google.com/mapfiles/ms/icons/red-dot.png",
                 scaledSize: new window.google.maps.Size(30, 30),
                 anchor: new window.google.maps.Point(15, 30),
-                labelOrigin: new window.google.maps.Point(15, -10),
+                labelOrigin: new window.google.maps.Point(15, -20),
               }}
               label={{
                 text: building.key,
                 color: "black",
                 fontWeight: "bold",
+                className: "bg-white p-2 m-2 rounded-md shadow-lg",
               }}
             />
           </BuildingModal>

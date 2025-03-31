@@ -22,24 +22,27 @@ import { ThemeSwitcher } from "../theme-switcher";
 import AppSidebarSettingsContent from "./appSidebarSettingsContent";
 import SignOutButton from "../signoutButton";
 import AppSibarMapContent from "./appSibarMapContent";
+import { Separator } from "../ui/separator";
 
 export function AppSidebar() {
   return (
-    <Sidebar className="">
-      <SidebarHeader>
+    <Sidebar className="bg-[#252A34] dark:bg-[#252A34]">
+      <SidebarHeader className="bg-[#252A34] dark:bg-[#252A34] text-white">
         <div className="flex flex-row items-center gap-2 p-2">
           <Image src={logo} alt="logo" width={24} height={24} />
 
           <h1 className="text-xl font-bold">DIREKSYON</h1>
         </div>
+
+        <Separator className="mb-2" />
       </SidebarHeader>
 
-      <SidebarContent>
+      <SidebarContent className="bg-[#252A34] dark:bg-[#252A34] text-white">
         <AppSibarMapContent />
         <AppSidebarSettingsContent />
       </SidebarContent>
 
-      <SidebarFooter className="">
+      <SidebarFooter className="bg-[#252A34] dark:bg-[#252A34] text-white">
         <ThemeSwitcher />
         <SidebarMenu>
           <SidebarMenuItem>
