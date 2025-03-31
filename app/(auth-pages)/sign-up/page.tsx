@@ -14,9 +14,10 @@ import { Separator } from "@/components/ui/separator"
 import { signUpSchema, SignUpType } from "@/model/authModel"
 import Image from "next/image"
 import logo from "@/assets/logo/logo.png"
-import { signUpAction } from "@/app/actions"
+
 import { MoonLoader } from "react-spinners"
 import { useToast } from "@/hooks/use-toast"
+import { signUpAction } from "../service/action"
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false)
