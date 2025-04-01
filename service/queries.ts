@@ -31,11 +31,17 @@ export async function getUserData(): Promise<UserType> {
             redirect("/sign-in");
         }
 
+        // get user avatar in supabase storage
+        const { data: avatarData } = await supabase.storage
+            .from("avatars")
+            .getPublicUrl(userData.avatar || "");
+
         return {
             id: userData.id,
             email: userData.email,
             username: userData.username,
             created_at: userData.created_at,
+            avatar: avatarData.publicUrl,
         };
     } catch (error) {
         console.error("Error fetching user:", error);

@@ -140,14 +140,14 @@ export default function SignIn() {
                     </Button>
                   </div>
                 </FormControl>
-                <div className="flex justify-end">
+               {/*  <div className="flex justify-end">
                   <Link
                     href="/forgot-password"
                     className="text-xs text-muted-foreground hover:text-primary"
                   >
                     Forgot password?
                   </Link>
-                </div>
+                </div> */}
                 <FormMessage />
               </FormItem>
             )}
@@ -177,8 +177,8 @@ export default function SignIn() {
         </div>
       </div>
 
-      <SignInWIthGoogleButton />
-
+      {/* <SignInWIthGoogleButton />
+ */}
       <div className="text-center text-sm">
         <span className="text-muted-foreground">Are you new? </span>
         <Link
